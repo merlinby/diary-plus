@@ -1,0 +1,17 @@
+/build/
+/release/
+/signing/
+/node_modules/
+*.jks
+*.keystore
+*.p12
+*.apk
+*.aab
+*.dex
+*.class
+local.properties
+.env
+.env.*
+.idea/
+.vscode/
+.DS_Store

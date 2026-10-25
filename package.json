@@ -1,0 +1,9 @@
+{
+ "name": "diary-plus-android-tests",
+ "private": true,
+ "version": "0.3.1",
+ "description": "DOM tests for Diary Plus Android WebView assets",
+ "scripts": {"test": "node tests/login.test.cjs && node tests/analytics.test.cjs", "test:native": "bash scripts/test-native.sh"},
+ "engines": {"node": ">=22"},
+ "devDependencies": {"jsdom": "27.4.0"}
+}
