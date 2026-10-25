@@ -1,6 +1,6 @@
 # Diary Plus Android
 
-Read README.md and docs/CODEX_HANDOFF.md before changing the app.
+Read README.md and docs/DEVELOPMENT.md before changing the app.
 
 ## Product requirements
 - Full official diary.e-schools.by in a WebView, plus local analytics.
