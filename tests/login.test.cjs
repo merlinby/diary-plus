@@ -13,6 +13,19 @@ function inject(d,user,password=''){return d.window.eval(script.replace('__SAVED
  assert.equal(inspect(inspection).passwordNeeded,true);assert.equal(inspection.window.document.querySelector('[type=password]').value,'');close(inspection);
  console.log('PASS inspect: no password access for open diary or already filled form; empty login form needs password');
 
+ inspection=page('<main>Дневник</main>');
+ inject(inspection,'user-a');
+ assert.equal(inspect(inspection),null);
+ inspection.window.document.body.innerHTML='<form><input name="login"><input type="password"></form>';
+ await new Promise(r=>setTimeout(r,1));
+ assert.equal(inspect(inspection).username,'user-a');
+ assert.equal(inspect(inspection).passwordNeeded,true);
+ inject(inspection,'user-a','secret');
+ assert.equal(inspection.window.document.querySelector('[type=password]').value,'secret');
+ assert.equal(inspect(inspection).passwordNeeded,false);
+ close(inspection);
+ console.log('PASS detect delayed login form before retrieving and filling saved password');
+
  let d=page('<form><input name="login"><input type="password"></form>');let submitted=false;d.window.document.querySelector('form').onsubmit=()=>submitted=true;inject(d,'user-a','secret');assert.equal(d.window.document.querySelector('[name=login]').value,'user-a');assert.equal(d.window.document.querySelector('[type=password]').value,'secret');assert(!submitted);close(d);console.log('PASS username/password fill, no automatic submission');
  d=page('<form><input name="login" value="user-b"><input type="password"></form>');inject(d,'user-a','secret');assert.equal(d.window.document.querySelector('[type=password]').value,'');close(d);console.log('PASS no password for mismatching username');
  d=page('<input name="login"><input name="search">');inject(d,'user-a','secret');assert.equal(d.window.document.querySelector('[name=login]').value,'');close(d);console.log('PASS no change to non-login forms');
